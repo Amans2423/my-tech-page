@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Process States in Operating System</title>
   <style>
     body {
@@ -31,8 +31,10 @@
       background: #e0e0e0;
       border: 1px solid #ccc;
       text-align: center;
+      transition: background 0.3s, color 0.3s;
     }
-    .tab-button:hover, .tab-button.active {
+    .tab-button:hover,
+    .tab-button.active {
       background: #007acc;
       color: white;
     }
@@ -40,6 +42,7 @@
       display: none;
       padding: 2rem;
       background: white;
+      animation: fadeIn 0.4s ease-in-out;
     }
     .tab-content.active {
       display: block;
@@ -52,12 +55,27 @@
       padding: 1rem;
       overflow-x: auto;
     }
+    img.diagram {
+      max-width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>🔄 Process States in Operating System</h1>
   </header>
+
   <div class="tab-container">
     <div class="tab-button active" onclick="showTab('new')">🆕 New</div>
     <div class="tab-button" onclick="showTab('ready')">✅ Ready</div>
@@ -78,6 +96,7 @@
     </ul>
     <p><strong>🔀 Transition:</strong> New → Ready (jab resources mil jaate hain)</p>
     <p><strong>📌 Example:</strong> User ne Notepad open kiya, abhi bana hai, run nahi hua.</p>
+    <img src="psd.jpg" alt="Process State Diagram" class="diagram" />
   </div>
 
   <div id="ready" class="tab-content">
@@ -142,6 +161,7 @@
 
   <div id="summary" class="tab-content">
     <h2>📊 Transitions & Summary</h2>
+    <img src="psd.jpg" alt="Process State Diagram" class="diagram" />
     <pre>
 From               → To                 Reason
 -----------------------------------------------
