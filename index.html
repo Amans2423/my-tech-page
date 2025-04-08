@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Process States in Operating System</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background: #f2f2f2;
+    }
+    header {
+      background: #007acc;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .tab-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: #fff;
+    }
+    .tab-button {
+      flex: 1;
+      padding: 1rem;
+      cursor: pointer;
+      background: #e0e0e0;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    .tab-button:hover, .tab-button.active {
+      background: #007acc;
+      color: white;
+    }
+    .tab-content {
+      display: none;
+      padding: 2rem;
+      background: white;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    h2 {
+      color: #007acc;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🔄 Process States in Operating System</h1>
+  </header>
+  <div class="tab-container">
+    <div class="tab-button active" onclick="showTab('new')">🆕 New</div>
+    <div class="tab-button" onclick="showTab('ready')">✅ Ready</div>
+    <div class="tab-button" onclick="showTab('running')">🏃 Running</div>
+    <div class="tab-button" onclick="showTab('wait')">⏳ Wait/Block</div>
+    <div class="tab-button" onclick="showTab('suspend_ready')">💤 Suspend/Ready</div>
+    <div class="tab-button" onclick="showTab('suspend_wait')">💤 Suspend/Wait</div>
+    <div class="tab-button" onclick="showTab('terminated')">❌ Terminated</div>
+    <div class="tab-button" onclick="showTab('summary')">📊 Summary</div>
+  </div>
+
+  <div id="new" class="tab-content active">
+    <h2>1. New (Just Created)</h2>
+    <p><strong>Description:</strong> Process just abhi bana hai (e.g., user ne koi app open kiya). OS abhi PCB create karega.</p>
+    <ul>
+      <li>Resources allocate kiye jaenge.</li>
+      <li>🧩 <strong>Data structures:</strong> Process table, PCB with PID, state, memory info</li>
+    </ul>
+    <p><strong>🔀 Transition:</strong> New → Ready (jab resources mil jaate hain)</p>
+    <p><strong>📌 Example:</strong> User ne Notepad open kiya, abhi bana hai, run nahi hua.</p>
+  </div>
+
+  <div id="ready" class="tab-content">
+    <h2>2. Ready (Waiting for CPU)</h2>
+    <p>Process run hone ke liye ready hai, par CPU busy hai.</p>
+    <ul>
+      <li>🧩 <strong>Data Structure:</strong> Ready Queue (FIFO, Priority Queue)</li>
+      <li>🔀 Ready → Run (CPU milta hai)</li>
+      <li>🔀 Ready → Suspend Ready (Memory pressure)</li>
+    </ul>
+    <p><strong>📌 Example:</strong> Notepad CPU ke liye wait kar raha hai.</p>
+  </div>
+
+  <div id="running" class="tab-content">
+    <h2>3. Running (Currently Executing)</h2>
+    <p>Process ko CPU mil gaya hai, ab execution ho raha hai.</p>
+    <ul>
+      <li>Dispatcher assigns CPU</li>
+      <li>Context Switching when needed</li>
+    </ul>
+    <p><strong>🔀 Transitions:</strong> Run → Terminate / Wait / Ready</p>
+    <p><strong>📌 Example:</strong> Aap Notepad me type kar rahe ho.</p>
+  </div>
+
+  <div id="wait" class="tab-content">
+    <h2>4. Wait / Block</h2>
+    <p>Process I/O ke liye wait kar raha hai. Jab tak I/O complete nahi hota, wait state me rahega.</p>
+    <ul>
+      <li>🧩 I/O Wait List</li>
+      <li>🔀 Wait → Ready (I/O complete)</li>
+      <li>🔀 Wait → Suspend Wait (Low Memory)</li>
+    </ul>
+  </div>
+
+  <div id="suspend_ready" class="tab-content">
+    <h2>5. Suspend / Ready</h2>
+    <p>Process ready hai par RAM me jagah nahi thi, to disk me bhej diya gaya.</p>
+    <ul>
+      <li>🧩 Virtual Memory, Swapping</li>
+      <li>🔀 Suspend Ready → Ready (RAM me jagah milne par)</li>
+      <li><strong>📌 Example:</strong> Student presentation ke liye ready par class full hai.</li>
+    </ul>
+  </div>
+
+  <div id="suspend_wait" class="tab-content">
+    <h2>6. Suspend / Wait</h2>
+    <p>Process I/O ke wait me tha aur RAM bhi kam thi to disk me bhej diya.</p>
+    <ul>
+      <li>🔀 Suspend Wait → Wait / Suspend Ready</li>
+      <li>🧩 Swap Space Table</li>
+      <li><strong>📌 Example:</strong> Printer ke liye wait karte hue bahar bhej diya gaya.</li>
+    </ul>
+  </div>
+
+  <div id="terminated" class="tab-content">
+    <h2>7. Terminated (Finished)</h2>
+    <p>Process complete ho gaya ya terminate kar diya gaya.</p>
+    <ul>
+      <li>OS PCB delete karta hai, resources free hote hain.</li>
+    </ul>
+  </div>
+
+  <div id="summary" class="tab-content">
+    <h2>📊 Transitions & Summary</h2>
+    <pre>
+From               → To                 Reason
+-----------------------------------------------
+New               → Ready              PCB created
+Ready             → Run                Dispatcher selects
+Run               → Wait               I/O Request
+Run               → Ready              Time slice over
+Run               → Terminate          Finished
+Wait              → Ready              I/O complete
+Ready             → Suspend Ready      RAM full
+Wait              → Suspend Wait       RAM full
+Suspend Wait      → Wait               Swapped in
+Suspend Wait      → Suspend Ready      I/O done
+Suspend Ready     → Ready              RAM available
+    </pre>
+    <h3>🧮 Scheduling & Memory</h3>
+    <ul>
+      <li>Ready Queue: CPU-bound, FIFO/Priority</li>
+      <li>I/O Queue: Device specific</li>
+      <li>Swap Space: Suspended processes</li>
+      <li>PCB Table: Process metadata</li>
+    </ul>
+    <h3>🌐 Virtual Memory</h3>
+    <p>RAM full hone par processes ko disk pe bheja jaata hai (Swap Out). Resume hone par wapas RAM me laaya jaata hai (Swap In).</p>
+  </div>
+
+  <script>
+    function showTab(id) {
+      const tabs = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-button');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
