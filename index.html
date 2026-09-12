@@ -1,202 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Process States in Operating System</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      background: #f2f2f2;
-    }
-    header {
-      background: #007acc;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-    }
-    .tab-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      background: #fff;
-    }
-    .tab-button {
-      flex: 1;
-      padding: 1rem;
-      cursor: pointer;
-      background: #e0e0e0;
-      border: 1px solid #ccc;
-      text-align: center;
-      transition: background 0.3s, color 0.3s;
-    }
-    .tab-button:hover,
-    .tab-button.active {
-      background: #007acc;
-      color: white;
-    }
-    .tab-content {
-      display: none;
-      padding: 2rem;
-      background: white;
-      animation: fadeIn 0.4s ease-in-out;
-    }
-    .tab-content.active {
-      display: block;
-    }
-    h2 {
-      color: #007acc;
-    }
-    pre {
-      background: #f4f4f4;
-      padding: 1rem;
-      overflow-x: auto;
-    }
-    img.diagram {
-      max-width: 100%;
-      height: auto;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 10 IT – MCQ Quiz</title>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:linear-gradient(135deg,#eef4ff,#f8f5ff);
+    color:#1f2937;
+  }
+  .wrap{max-width:900px;margin:auto;padding:20px}
+  .header{
+    background:linear-gradient(135deg,#243b80,#5b3ca8);
+    color:white;border-radius:20px;padding:25px 22px;
+    box-shadow:0 10px 30px rgba(40,50,100,.18);
+    margin-bottom:18px;
+  }
+  .header h1{margin:0 0 7px;font-size:30px}
+  .header p{margin:0;opacity:.9}
+  .topbar{
+    display:flex;gap:12px;align-items:center;justify-content:space-between;
+    margin-bottom:16px;flex-wrap:wrap;
+  }
+  .progress-box,.score-box{
+    background:white;border-radius:14px;padding:11px 15px;
+    box-shadow:0 5px 18px rgba(0,0,0,.07);font-weight:bold;
+  }
+  .progress{height:9px;background:#dfe5f2;border-radius:10px;overflow:hidden;margin:0 0 18px}
+  .progress span{display:block;height:100%;width:0;background:#5b3ca8;transition:.3s}
+  .card{
+    background:white;border-radius:20px;padding:25px;
+    box-shadow:0 8px 28px rgba(0,0,0,.09);
+  }
+  .qno{font-size:14px;font-weight:bold;color:#5b3ca8;margin-bottom:10px}
+  .question{font-size:21px;line-height:1.45;font-weight:700;margin-bottom:20px}
+  .options{display:grid;gap:12px}
+  button.option{
+    width:100%;text-align:left;border:2px solid #e2e6ef;background:#fafbfe;
+    border-radius:13px;padding:15px 16px;font-size:16px;cursor:pointer;
+    transition:.18s;touch-action:manipulation;
+  }
+  button.option:hover:not(:disabled){border-color:#7254c7;background:#f4f0ff;transform:translateY(-1px)}
+  button.option:disabled{cursor:default}
+  button.correct{background:#dcfce7!important;border-color:#16a34a!important;color:#166534}
+  button.wrong{background:#fee2e2!important;border-color:#dc2626!important;color:#991b1b}
+  .feedback{
+    min-height:48px;margin-top:18px;border-radius:12px;padding:13px 15px;
+    font-weight:bold;display:none;
+  }
+  .feedback.show{display:block}
+  .feedback.good{background:#ecfdf5;color:#166534}
+  .feedback.bad{background:#fff1f2;color:#9f1239}
+  .next{
+    margin-top:18px;width:100%;padding:14px;border:0;border-radius:13px;
+    background:#243b80;color:white;font-size:17px;font-weight:bold;cursor:pointer;
+    display:none;touch-action:manipulation;
+  }
+  .next:hover{background:#1b2f68}
+  .result{text-align:center;display:none}
+  .result h2{font-size:30px;margin:5px 0 10px}
+  .result .big{font-size:52px;font-weight:800;color:#5b3ca8;margin:12px 0}
+  .restart{
+    padding:14px 25px;border:0;border-radius:12px;background:#5b3ca8;
+    color:white;font-weight:bold;font-size:16px;cursor:pointer;
+  }
+  .note{font-size:13px;color:#6b7280;margin-top:15px;text-align:center}
+  @media(max-width:600px){
+    .wrap{padding:12px}
+    .header h1{font-size:24px}
+    .card{padding:18px}
+    .question{font-size:18px}
+    button.option{font-size:15px;padding:14px}
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>🔄 Process States in Operating System</h1>
-  </header>
-
-  <div class="tab-container">
-    <div class="tab-button active" onclick="showTab('new')">🆕 New</div>
-    <div class="tab-button" onclick="showTab('ready')">✅ Ready</div>
-    <div class="tab-button" onclick="showTab('running')">🏃 Running</div>
-    <div class="tab-button" onclick="showTab('wait')">⏳ Wait/Block</div>
-    <div class="tab-button" onclick="showTab('suspend_ready')">💤 Suspend/Ready</div>
-    <div class="tab-button" onclick="showTab('suspend_wait')">💤 Suspend/Wait</div>
-    <div class="tab-button" onclick="showTab('terminated')">❌ Terminated</div>
-    <div class="tab-button" onclick="showTab('summary')">📊 Summary</div>
+<div class="wrap">
+  <div class="header">
+    <h1>Class 10 Information Technology</h1>
+    <p>Basic ICT Skills-II &nbsp;|&nbsp; MCQ Quiz – 25 Questions</p>
   </div>
 
-  <div id="new" class="tab-content active">
-    <h2>1. New (Just Created)</h2>
-    <p><strong>Description:</strong> Process just abhi bana hai (e.g., user ne koi app open kiya). OS abhi PCB create karega.</p>
-    <ul>
-      <li>Resources allocate kiye jaenge.</li>
-      <li>🧩 <strong>Data structures:</strong> Process table, PCB with PID, state, memory info</li>
-    </ul>
-    <p><strong>🔀 Transition:</strong> New → Ready (jab resources mil jaate hain)</p>
-    <p><strong>📌 Example:</strong> User ne Notepad open kiya, abhi bana hai, run nahi hua.</p>
-    <img src="psd.JPG" alt="Process State Diagram" class="diagram" />
+  <div class="topbar">
+    <div class="progress-box" id="counter">Question 1 of 25</div>
+    <div class="score-box" id="score">Score: 0</div>
+  </div>
+  <div class="progress"><span id="bar"></span></div>
+
+  <div class="card" id="quizCard">
+    <div class="qno" id="qno"></div>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
   </div>
 
-  <div id="ready" class="tab-content">
-    <h2>2. Ready (Waiting for CPU)</h2>
-    <p>Process run hone ke liye ready hai, par CPU busy hai.</p>
-    <ul>
-      <li>🧩 <strong>Data Structure:</strong> Ready Queue (FIFO, Priority Queue)</li>
-      <li>🔀 Ready → Run (CPU milta hai)</li>
-      <li>🔀 Ready → Suspend Ready (Memory pressure)</li>
-    </ul>
-    <p><strong>📌 Example:</strong> Notepad CPU ke liye wait kar raha hai.</p>
+  <div class="card result" id="result">
+    <h2>Quiz Completed! 🎉</h2>
+    <div class="big" id="finalScore"></div>
+    <p id="message"></p>
+    <button class="restart" onclick="restartQuiz()">Try Again</button>
   </div>
 
-  <div id="running" class="tab-content">
-    <h2>3. Running (Currently Executing)</h2>
-    <p>Process ko CPU mil gaya hai, ab execution ho raha hai.</p>
-    <ul>
-      <li>Dispatcher assigns CPU</li>
-      <li>Context Switching when needed</li>
-    </ul>
-    <p><strong>🔀 Transitions:</strong> Run → Terminate / Wait / Ready</p>
-    <p><strong>📌 Example:</strong> Aap Notepad me type kar rahe ho.</p>
-  </div>
+  <div class="note">Tap / click an option to get instant feedback.</div>
+</div>
 
-  <div id="wait" class="tab-content">
-    <h2>4. Wait / Block</h2>
-    <p>Process I/O ke liye wait kar raha hai. Jab tak I/O complete nahi hota, wait state me rahega.</p>
-    <ul>
-      <li>🧩 I/O Wait List</li>
-      <li>🔀 Wait → Ready (I/O complete)</li>
-      <li>🔀 Wait → Suspend Wait (Low Memory)</li>
-    </ul>
-  </div>
+<script>
+const questions = [
+  {
+    q:"Which of the following should NOT be done to clean a keyboard?",
+    options:["Holding keyboard upside down and shaking it","Blowing on keyboard with compressed air","Using a damp lint-free cloth to clean the top of keys","Spraying liquid cleaner on the keys"],
+    answer:3
+  },
+  {
+    q:"Which of the following cannot be used as a cleaning tool for a computer?",
+    options:["Cotton cloth","Foam swab","Copper wire brush","Cotton swab"],
+    answer:2
+  },
+  {
+    q:"_____ are computer programs that can damage data and software or steal information stored on a computer.",
+    options:["Spam","Viruses","Junk mail","BIOS"],
+    answer:1
+  },
+  {
+    q:"Which of the following cannot be handled by an anti-virus software?",
+    options:["Junk file","Spam","Malware","Software setting glitch"],
+    answer:3
+  },
+  {
+    q:"Neha receives several mails from companies advertising a product or trying to attract her to their websites. Such mails are called:",
+    options:["Advertising mails","Bulk mails","Spam mails","Labelled mails"],
+    answer:2
+  },
+  {
+    q:"Identify the measure to protect a computer from threats and viruses.",
+    options:["Sharing password with friends","Allowing anyone to use your device","Using Antivirus","Leaving computer without logging out"],
+    answer:2
+  },
+  {
+    q:"A strong password consists of _____, numbers and special characters.",
+    options:["Letters","Name","Birth date","Mobile number"],
+    answer:0
+  },
+  {
+    q:"Software should be _____ regularly so that it works with maximum efficiency.",
+    options:["Upgraded","Updated","Installed","Uninstalled"],
+    answer:1
+  },
+  {
+    q:"Which of the following is NOT a way to protect data?",
+    options:["Password","Antivirus and firewall","Secure sites","Trojan horse"],
+    answer:3
+  },
+  {
+    q:"The initial Windows screen that the user can see once Windows 10 is loaded is called the _____.",
+    options:["Taskbar","Desktop","Recycle Bin","Start Menu"],
+    answer:1
+  },
+  {
+    q:"The _____ feature of Windows 10 allows you to easily recover deleted files and folders.",
+    options:["Taskbar","Recycle Bin","Search Box","Control Panel"],
+    answer:1
+  },
+  {
+    q:"The _____ menu is activated by pressing the Start button present at the left corner of the taskbar.",
+    options:["Start","File","Edit","View"],
+    answer:0
+  },
+  {
+    q:"A computer automatically runs a basic program called _____ as soon as it is switched on.",
+    options:["BIOS (Basic Input/Output System)","IOS (Input/Output System)","BOSS (Basic on System Startup)","POS (Power On System)"],
+    answer:0
+  },
+  {
+    q:"GUI stands for:",
+    options:["Graphical User Interaction","Graphical User Interface","Graphical Upper Interface","Geographical User Interaction"],
+    answer:1
+  },
+  {
+    q:"Which of the following functions is NOT performed using a mouse?",
+    options:["Turn on","Hover","Right click","Drag and Drop"],
+    answer:0
+  },
+  {
+    q:"The physical parts of a computer system that we can see and touch are called:",
+    options:["Software","Hardware","SPAM","DISC"],
+    answer:1
+  },
+  {
+    q:"Software that serves as an interface between the user and computer is termed as:",
+    options:["Operating system","Android","Windows","DOS"],
+    answer:0
+  },
+  {
+    q:"A file deleted from a pendrive in Windows is generally:",
+    options:["Moved to Recycle Bin","Moved to Computer","Moved to Windows Explorer","Permanently deleted"],
+    answer:3
+  },
+  {
+    q:"Which option allows the user to change various settings in a computer?",
+    options:["Shut down","All Programs","Control Panel","Search box"],
+    answer:2
+  },
+  {
+    q:"The shortcut used for copying is:",
+    options:["Ctrl + C","Ctrl + V","Ctrl + S","Ctrl + P"],
+    answer:0
+  },
+  {
+    q:"Select the option to delete a file permanently.",
+    options:["Ctrl + A","Ctrl + C","Ctrl + V","Shift + Delete"],
+    answer:3
+  },
+  {
+    q:"The _____ is a temporary storage area for information that you have copied or moved from one place and plan to use somewhere else.",
+    options:["Recycle Bin","Hard drive","Clipboard","Taskbar"],
+    answer:2
+  },
+  {
+    q:"What keys do you use to cut the data you selected?",
+    options:["Ctrl + X","Ctrl + C","Ctrl + Z","Ctrl + Y"],
+    answer:0
+  },
+  {
+    q:"Which shortcut key is used to paste a file?",
+    options:["Ctrl + C","Ctrl + P","Ctrl + V","Ctrl + X"],
+    answer:2
+  },
+  {
+    q:"An operating system in which commands can be entered by clicking, double-clicking or right-clicking a mouse is:",
+    options:["GUI-based","CUI-based","TUI-based","AI-based"],
+    answer:0
+  }
+];
 
-  <div id="suspend_ready" class="tab-content">
-    <h2>5. Suspend / Ready</h2>
-    <p>Process ready hai par RAM me jagah nahi thi, to disk me bhej diya gaya.</p>
-    <ul>
-      <li>🧩 Virtual Memory, Swapping</li>
-      <li>🔀 Suspend Ready → Ready (RAM me jagah milne par)</li>
-      <li><strong>📌 Example:</strong> Student presentation ke liye ready par class full hai.</li>
-    </ul>
-  </div>
+let current=0, score=0, answered=false;
 
-  <div id="suspend_wait" class="tab-content">
-    <h2>6. Suspend / Wait</h2>
-    <p>Process I/O ke wait me tha aur RAM bhi kam thi to disk me bhej diya.</p>
-    <ul>
-      <li>🔀 Suspend Wait → Wait / Suspend Ready</li>
-      <li>🧩 Swap Space Table</li>
-      <li><strong>📌 Example:</strong> Printer ke liye wait karte hue bahar bhej diya gaya.</li>
-    </ul>
-  </div>
+const qno=document.getElementById("qno");
+const question=document.getElementById("question");
+const optionsBox=document.getElementById("options");
+const feedback=document.getElementById("feedback");
+const nextBtn=document.getElementById("nextBtn");
+const counter=document.getElementById("counter");
+const scoreBox=document.getElementById("score");
+const bar=document.getElementById("bar");
 
-  <div id="terminated" class="tab-content">
-    <h2>7. Terminated (Finished)</h2>
-    <p>Process complete ho gaya ya terminate kar diya gaya.</p>
-    <ul>
-      <li>OS PCB delete karta hai, resources free hote hain.</li>
-    </ul>
-  </div>
+function loadQuestion(){
+  answered=false;
+  const item=questions[current];
+  qno.textContent=`Question ${current+1}`;
+  question.textContent=item.q;
+  counter.textContent=`Question ${current+1} of ${questions.length}`;
+  scoreBox.textContent=`Score: ${score}`;
+  bar.style.width=((current)/questions.length*100)+"%";
+  optionsBox.innerHTML="";
+  feedback.className="feedback";
+  feedback.innerHTML="";
+  nextBtn.style.display="none";
 
-  <div id="summary" class="tab-content">
-    <h2>📊 Transitions & Summary</h2>
-    <img src="psd.JPG" alt="Process State Diagram" class="diagram" />
-    <pre>
-From               → To                 Reason
------------------------------------------------
-New               → Ready              PCB created
-Ready             → Run                Dispatcher selects
-Run               → Wait               I/O Request
-Run               → Ready              Time slice over
-Run               → Terminate          Finished
-Wait              → Ready              I/O complete
-Ready             → Suspend Ready      RAM full
-Wait              → Suspend Wait       RAM full
-Suspend Wait      → Wait               Swapped in
-Suspend Wait      → Suspend Ready      I/O done
-Suspend Ready     → Ready              RAM available
-    </pre>
-    <h3>🧮 Scheduling & Memory</h3>
-    <ul>
-      <li>Ready Queue: CPU-bound, FIFO/Priority</li>
-      <li>I/O Queue: Device specific</li>
-      <li>Swap Space: Suspended processes</li>
-      <li>PCB Table: Process metadata</li>
-    </ul>
-    <h3>🌐 Virtual Memory</h3>
-    <p>RAM full hone par processes ko disk pe bheja jaata hai (Swap Out). Resume hone par wapas RAM me laaya jaata hai (Swap In).</p>
-  </div>
+  item.options.forEach((opt,i)=>{
+    const btn=document.createElement("button");
+    btn.className="option";
+    btn.innerHTML=`<strong>${String.fromCharCode(65+i)}.</strong> ${opt}`;
+    btn.onclick=()=>checkAnswer(i,btn);
+    optionsBox.appendChild(btn);
+  });
+}
 
-  <script>
-    function showTab(id) {
-      const tabs = document.querySelectorAll('.tab-content');
-      const buttons = document.querySelectorAll('.tab-button');
-      tabs.forEach(tab => tab.classList.remove('active'));
-      buttons.forEach(btn => btn.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      event.target.classList.add('active');
-    }
-  </script>
+function checkAnswer(selected,clicked){
+  if(answered)return;
+  answered=true;
+  const correct=questions[current].answer;
+  const all=document.querySelectorAll(".option");
+  all.forEach(b=>b.disabled=true);
+  all[correct].classList.add("correct");
+
+  if(selected===correct){
+    score++;
+    clicked.classList.add("correct");
+    feedback.className="feedback show good";
+    feedback.innerHTML="✓ Correct! Well done.";
+  }else{
+    clicked.classList.add("wrong");
+    feedback.className="feedback show bad";
+    feedback.innerHTML=`✗ Incorrect. The correct answer is <b>${String.fromCharCode(65+correct)}. ${questions[current].options[correct]}</b>`;
+  }
+  scoreBox.textContent=`Score: ${score}`;
+  bar.style.width=((current+1)/questions.length*100)+"%";
+  nextBtn.style.display="block";
+  nextBtn.textContent=current===questions.length-1 ? "View Result →" : "Next Question →";
+}
+
+function nextQuestion(){
+  if(!answered)return;
+  current++;
+  if(current<questions.length){
+    loadQuestion();
+    window.scrollTo({top:0,behavior:"smooth"});
+  }else{
+    document.getElementById("quizCard").style.display="none";
+    document.querySelector(".topbar").style.display="none";
+    document.querySelector(".progress").style.display="none";
+    document.getElementById("result").style.display="block";
+    document.getElementById("finalScore").textContent=`${score} / ${questions.length}`;
+    const pct=score/questions.length*100;
+    document.getElementById("message").textContent=
+      pct>=80 ? "Excellent! 🌟 You have a strong understanding of the topics." :
+      pct>=60 ? "Good job! 👍 Revise the topics once and try again." :
+      "Keep practising! 📚 Review the chapter and attempt the quiz again.";
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+}
+
+function restartQuiz(){
+  current=0;score=0;
+  document.getElementById("quizCard").style.display="block";
+  document.querySelector(".topbar").style.display="flex";
+  document.querySelector(".progress").style.display="block";
+  document.getElementById("result").style.display="none";
+  loadQuestion();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+loadQuestion();
+</script>
 </body>
 </html>
