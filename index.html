@@ -3,329 +3,326 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Class 10 IT – MCQ Quiz</title>
+<title>Class 10 IT Skills Practice Hub</title>
 <style>
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:linear-gradient(135deg,#eef4ff,#f8f5ff);
-    color:#1f2937;
-  }
-  .wrap{max-width:900px;margin:auto;padding:20px}
-  .header{
-    background:linear-gradient(135deg,#243b80,#5b3ca8);
-    color:white;border-radius:20px;padding:25px 22px;
-    box-shadow:0 10px 30px rgba(40,50,100,.18);
-    margin-bottom:18px;
-  }
-  .header h1{margin:0 0 7px;font-size:30px}
-  .header p{margin:0;opacity:.9}
-  .topbar{
-    display:flex;gap:12px;align-items:center;justify-content:space-between;
-    margin-bottom:16px;flex-wrap:wrap;
-  }
-  .progress-box,.score-box{
-    background:white;border-radius:14px;padding:11px 15px;
-    box-shadow:0 5px 18px rgba(0,0,0,.07);font-weight:bold;
-  }
-  .progress{height:9px;background:#dfe5f2;border-radius:10px;overflow:hidden;margin:0 0 18px}
-  .progress span{display:block;height:100%;width:0;background:#5b3ca8;transition:.3s}
-  .card{
-    background:white;border-radius:20px;padding:25px;
-    box-shadow:0 8px 28px rgba(0,0,0,.09);
-  }
-  .qno{font-size:14px;font-weight:bold;color:#5b3ca8;margin-bottom:10px}
-  .question{font-size:21px;line-height:1.45;font-weight:700;margin-bottom:20px}
-  .options{display:grid;gap:12px}
-  button.option{
-    width:100%;text-align:left;border:2px solid #e2e6ef;background:#fafbfe;
-    border-radius:13px;padding:15px 16px;font-size:16px;cursor:pointer;
-    transition:.18s;touch-action:manipulation;
-  }
-  button.option:hover:not(:disabled){border-color:#7254c7;background:#f4f0ff;transform:translateY(-1px)}
-  button.option:disabled{cursor:default}
-  button.correct{background:#dcfce7!important;border-color:#16a34a!important;color:#166534}
-  button.wrong{background:#fee2e2!important;border-color:#dc2626!important;color:#991b1b}
-  .feedback{
-    min-height:48px;margin-top:18px;border-radius:12px;padding:13px 15px;
-    font-weight:bold;display:none;
-  }
-  .feedback.show{display:block}
-  .feedback.good{background:#ecfdf5;color:#166534}
-  .feedback.bad{background:#fff1f2;color:#9f1239}
-  .next{
-    margin-top:18px;width:100%;padding:14px;border:0;border-radius:13px;
-    background:#243b80;color:white;font-size:17px;font-weight:bold;cursor:pointer;
-    display:none;touch-action:manipulation;
-  }
-  .next:hover{background:#1b2f68}
-  .result{text-align:center;display:none}
-  .result h2{font-size:30px;margin:5px 0 10px}
-  .result .big{font-size:52px;font-weight:800;color:#5b3ca8;margin:12px 0}
-  .restart{
-    padding:14px 25px;border:0;border-radius:12px;background:#5b3ca8;
-    color:white;font-weight:bold;font-size:16px;cursor:pointer;
-  }
-  .note{font-size:13px;color:#6b7280;margin-top:15px;text-align:center}
-  @media(max-width:600px){
-    .wrap{padding:12px}
-    .header h1{font-size:24px}
-    .card{padding:18px}
-    .question{font-size:18px}
-    button.option{font-size:15px;padding:14px}
-  }
+:root{--bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#667085;--primary:#315efb;--primary2:#6c63ff;--border:#e4e7ec;--good:#16a34a;--bad:#dc2626}
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#eef3ff,#f8fafc);color:var(--text)}
+header{padding:28px 18px;text-align:center;background:linear-gradient(135deg,#315efb,#6c63ff);color:white}
+header h1{margin:0 0 8px;font-size:32px} header p{margin:0;opacity:.9}
+.container{max-width:1100px;margin:30px auto;padding:0 18px}
+.screen{display:none}.screen.active{display:block}
+.home-grid,.choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;box-shadow:0 8px 25px rgba(16,24,40,.07)}
+.unit-btn,.choice-btn,.back-btn,.next-btn{border:0;border-radius:14px;padding:17px 18px;font-size:16px;font-weight:700;cursor:pointer;transition:.2s}
+.unit-btn{background:white;color:var(--text);border:1px solid var(--border);min-height:125px;text-align:left}
+.unit-btn:hover,.choice-btn:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(49,94,251,.15)}
+.unit-no{display:block;color:var(--primary);font-size:13px;margin-bottom:8px;text-transform:uppercase}
+.choice-btn{background:linear-gradient(135deg,#315efb,#6c63ff);color:white;min-height:130px}
+.choice-btn small{display:block;font-weight:400;margin-top:8px;opacity:.9}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.back-btn{background:#fff;border:1px solid var(--border);color:var(--text);padding:10px 15px}
+h2{margin:0}.muted{color:var(--muted)}
+.progress{height:9px;background:#e9edf5;border-radius:20px;overflow:hidden;margin:15px 0 22px}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,#315efb,#6c63ff);width:0}
+.question-card{background:white;border:1px solid var(--border);border-radius:18px;padding:24px}
+.qno{color:var(--primary);font-weight:700}.question{font-size:20px;font-weight:700;line-height:1.45;margin:10px 0 20px}
+.options{display:grid;gap:11px}.option{padding:14px 16px;border:1px solid var(--border);background:#fff;border-radius:12px;text-align:left;cursor:pointer;font-size:16px}
+.option:hover{border-color:#9db0ff;background:#f7f8ff}.option.correct{background:#ecfdf3;border-color:#86efac;color:#166534}.option.wrong{background:#fef2f2;border-color:#fca5a5;color:#991b1b}.option.disabled{cursor:default}
+.feedback{margin-top:16px;padding:12px;border-radius:10px;font-weight:600;display:none}.feedback.show{display:block}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:18px}
+.next-btn{background:var(--primary);color:white;padding:12px 20px}.next-btn:disabled{opacity:.45;cursor:not-allowed}
+.score{text-align:center;background:white;border:1px solid var(--border);border-radius:18px;padding:28px;margin-top:20px}
+.score strong{font-size:38px;color:var(--primary)}
+.descriptive-list{display:grid;gap:14px}
+.desc{background:white;border:1px solid var(--border);border-radius:15px;padding:18px}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;background:#eef2ff;color:#315efb;font-size:12px;font-weight:700;margin-bottom:8px}
+footer{text-align:center;color:var(--muted);padding:30px}
+@media(max-width:600px){header h1{font-size:25px}.question{font-size:18px}.container{margin-top:18px}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="header">
-    <h1>Class 10 Information Technology</h1>
-    <p>Basic ICT Skills-II &nbsp;|&nbsp; MCQ Quiz – 25 Questions</p>
-  </div>
+<header>
+<h1>Class 10 IT Skills Practice Hub</h1>
+<p>MCQ & Descriptive Practice • Four Units</p>
+</header>
 
-  <div class="topbar">
-    <div class="progress-box" id="counter">Question 1 of 25</div>
-    <div class="score-box" id="score">Score: 0</div>
-  </div>
-  <div class="progress"><span id="bar"></span></div>
+<div class="container">
 
-  <div class="card" id="quizCard">
-    <div class="qno" id="qno"></div>
-    <div class="question" id="question"></div>
-    <div class="options" id="options"></div>
-    <div class="feedback" id="feedback"></div>
-    <button class="next" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
-  </div>
-
-  <div class="card result" id="result">
-    <h2>Quiz Completed! 🎉</h2>
-    <div class="big" id="finalScore"></div>
-    <p id="message"></p>
-    <button class="restart" onclick="restartQuiz()">Try Again</button>
-  </div>
-
-  <div class="note">Tap / click an option to get instant feedback.</div>
+<section id="home" class="screen active">
+<div class="card" style="margin-bottom:20px;text-align:center">
+<h2>Select a Unit</h2><p class="muted">Choose a unit to access MCQ and descriptive practice.</p>
 </div>
+<div class="home-grid">
+<button class="unit-btn" onclick="openUnit(0)"><span class="unit-no">Unit 1</span><strong>Communication Skills</strong><br><span class="muted">MCQs + Descriptive Practice</span></button>
+<button class="unit-btn" onclick="openUnit(1)"><span class="unit-no">Unit 2</span><strong>ICT Skills</strong><br><span class="muted">MCQs + Descriptive Practice</span></button>
+<button class="unit-btn" onclick="openUnit(2)"><span class="unit-no">Unit 3</span><strong>Self-Management</strong><br><span class="muted">MCQs + Descriptive Practice</span></button>
+<button class="unit-btn" onclick="openUnit(3)"><span class="unit-no">Unit 4</span><strong>Digital Documentation</strong><br><span class="muted">MCQs + Descriptive Practice</span></button>
+</div>
+</section>
+
+<section id="choice" class="screen">
+<div class="topbar"><button class="back-btn" onclick="goHome()">← Home</button><div><h2 id="unitTitle"></h2><span class="muted">Choose practice type</span></div><span></span></div>
+<div class="choice-grid">
+<button class="choice-btn" onclick="startMCQ()">MCQ Practice<small>Attempt all questions with instant feedback and score.</small></button>
+<button class="choice-btn" onclick="showDescriptive()">Descriptive Practice<small>Practice 2-mark and 3-mark questions.</small></button>
+</div>
+</section>
+
+<section id="mcq" class="screen">
+<div class="topbar"><button class="back-btn" onclick="backToChoice()">← Unit Menu</button><div><h2 id="mcqTitle"></h2><span id="counter" class="muted"></span></div><span></span></div>
+<div class="progress"><span id="progressBar"></span></div>
+<div id="questionArea"></div>
+</section>
+
+<section id="descriptive" class="screen">
+<div class="topbar"><button class="back-btn" onclick="backToChoice()">← Unit Menu</button><div><h2 id="descTitle"></h2><span class="muted">Descriptive Practice</span></div><span></span></div>
+<div class="descriptive-list" id="descList"></div>
+</section>
+
+</div>
+<footer>Class 10 • Practice Website</footer>
 
 <script>
-const questions = [
-  {
-    q:"Which of the following should NOT be done to clean a keyboard?",
-    options:["Holding keyboard upside down and shaking it","Blowing on keyboard with compressed air","Using a damp lint-free cloth to clean the top of keys","Spraying liquid cleaner on the keys"],
-    answer:3
-  },
-  {
-    q:"Which of the following cannot be used as a cleaning tool for a computer?",
-    options:["Cotton cloth","Foam swab","Copper wire brush","Cotton swab"],
-    answer:2
-  },
-  {
-    q:"_____ are computer programs that can damage data and software or steal information stored on a computer.",
-    options:["Spam","Viruses","Junk mail","BIOS"],
-    answer:1
-  },
-  {
-    q:"Which of the following cannot be handled by an anti-virus software?",
-    options:["Junk file","Spam","Malware","Software setting glitch"],
-    answer:3
-  },
-  {
-    q:"Neha receives several mails from companies advertising a product or trying to attract her to their websites. Such mails are called:",
-    options:["Advertising mails","Bulk mails","Spam mails","Labelled mails"],
-    answer:2
-  },
-  {
-    q:"Identify the measure to protect a computer from threats and viruses.",
-    options:["Sharing password with friends","Allowing anyone to use your device","Using Antivirus","Leaving computer without logging out"],
-    answer:2
-  },
-  {
-    q:"A strong password consists of _____, numbers and special characters.",
-    options:["Letters","Name","Birth date","Mobile number"],
-    answer:0
-  },
-  {
-    q:"Software should be _____ regularly so that it works with maximum efficiency.",
-    options:["Upgraded","Updated","Installed","Uninstalled"],
-    answer:1
-  },
-  {
-    q:"Which of the following is NOT a way to protect data?",
-    options:["Password","Antivirus and firewall","Secure sites","Trojan horse"],
-    answer:3
-  },
-  {
-    q:"The initial Windows screen that the user can see once Windows 10 is loaded is called the _____.",
-    options:["Taskbar","Desktop","Recycle Bin","Start Menu"],
-    answer:1
-  },
-  {
-    q:"The _____ feature of Windows 10 allows you to easily recover deleted files and folders.",
-    options:["Taskbar","Recycle Bin","Search Box","Control Panel"],
-    answer:1
-  },
-  {
-    q:"The _____ menu is activated by pressing the Start button present at the left corner of the taskbar.",
-    options:["Start","File","Edit","View"],
-    answer:0
-  },
-  {
-    q:"A computer automatically runs a basic program called _____ as soon as it is switched on.",
-    options:["BIOS (Basic Input/Output System)","IOS (Input/Output System)","BOSS (Basic on System Startup)","POS (Power On System)"],
-    answer:0
-  },
-  {
-    q:"GUI stands for:",
-    options:["Graphical User Interaction","Graphical User Interface","Graphical Upper Interface","Geographical User Interaction"],
-    answer:1
-  },
-  {
-    q:"Which of the following functions is NOT performed using a mouse?",
-    options:["Turn on","Hover","Right click","Drag and Drop"],
-    answer:0
-  },
-  {
-    q:"The physical parts of a computer system that we can see and touch are called:",
-    options:["Software","Hardware","SPAM","DISC"],
-    answer:1
-  },
-  {
-    q:"Software that serves as an interface between the user and computer is termed as:",
-    options:["Operating system","Android","Windows","DOS"],
-    answer:0
-  },
-  {
-    q:"A file deleted from a pendrive in Windows is generally:",
-    options:["Moved to Recycle Bin","Moved to Computer","Moved to Windows Explorer","Permanently deleted"],
-    answer:3
-  },
-  {
-    q:"Which option allows the user to change various settings in a computer?",
-    options:["Shut down","All Programs","Control Panel","Search box"],
-    answer:2
-  },
-  {
-    q:"The shortcut used for copying is:",
-    options:["Ctrl + C","Ctrl + V","Ctrl + S","Ctrl + P"],
-    answer:0
-  },
-  {
-    q:"Select the option to delete a file permanently.",
-    options:["Ctrl + A","Ctrl + C","Ctrl + V","Shift + Delete"],
-    answer:3
-  },
-  {
-    q:"The _____ is a temporary storage area for information that you have copied or moved from one place and plan to use somewhere else.",
-    options:["Recycle Bin","Hard drive","Clipboard","Taskbar"],
-    answer:2
-  },
-  {
-    q:"What keys do you use to cut the data you selected?",
-    options:["Ctrl + X","Ctrl + C","Ctrl + Z","Ctrl + Y"],
-    answer:0
-  },
-  {
-    q:"Which shortcut key is used to paste a file?",
-    options:["Ctrl + C","Ctrl + P","Ctrl + V","Ctrl + X"],
-    answer:2
-  },
-  {
-    q:"An operating system in which commands can be entered by clicking, double-clicking or right-clicking a mouse is:",
-    options:["GUI-based","CUI-based","TUI-based","AI-based"],
-    answer:0
-  }
+const units = [
+{
+title:"Communication Skills",
+mcqs:[
+["The word “communication” comes from which Latin word?",["Communis","Communicare","Communico","Communication"],1],
+["Which of the following is not a main type of communication?",["Verbal","Non-verbal","Visual","Written"],3],
+["Who begins the communication process?",["Receiver","Sender","Channel","Feedback"],1],
+["Which element of communication refers to the means through which information is sent?",["Message","Receiver","Channel","Feedback"],2],
+["Which of the following can influence communication?",["Culture","Past experience","Feelings","All of these"],3],
+["Which factor should be considered while choosing a communication method?",["Target audience","Cost","Urgency","All of these"],3],
+["Which of the following is one of the 7 Cs of communication?",["Creative","Concise","Casual","Colourful"],1],
+["“Use simple language and include only what is necessary” refers to:",["Clear","Concise","Complete","Concrete"],1],
+["Which form of communication uses written or typed words?",["Oral communication","Written communication","Non-verbal communication","Visual communication"],1],
+["Communication between two people is called:",["Public communication","Small group communication","Interpersonal communication","Visual communication"],2],
+["Which is an advantage of verbal communication?",["Language barriers","Cultural differences","Quick feedback","Misunderstanding"],2],
+["The 3Ps method of public speaking includes Prepare, Practice and:",["Plan","Perform","Present","Proceed"],1],
+["Communication without using words is called:",["Verbal communication","Written communication","Non-verbal communication","Public communication"],2],
+["Which of the following is an example of non-verbal communication?",["Email","Letter","Eye contact","Report"],2],
+["Which non-verbal element refers to the position of the body?",["Gesture","Posture","Space","Touch"],1],
+["Tone, pitch, speed and volume are features of:",["Posture","Paralanguage","Gesture","Space"],1],
+["Which of the following is an example of visual communication?",["Telephone conversation","Email","Danger warning sign","Face-to-face discussion"],2],
+["Communication is incomplete without:",["Channel","Feedback","Message","Sender"],1],
+["How many main types of feedback are discussed in the notes?",["Two","Three","Four","Five"],1],
+["Which is a characteristic of good feedback?",["Rude","Delayed","Specific","Unclear"],2],
+["Which of the following is a physical barrier to communication?",["Noise","Culture","Vocabulary","Personal feelings"],0],
+["Which barrier occurs due to differences in language or vocabulary?",["Physical barrier","Linguistic barrier","Organizational barrier","Cultural barrier"],1],
+["How many traditional parts of speech are mentioned in the notes?",["Six","Seven","Eight","Nine"],2]
+],
+desc2:["What is communication? Mention any two main types of communication.","What are the important parts of communication?","Write any two factors that influence communication.","What are the 7 Cs of effective communication? Write any four.","Differentiate between verbal and non-verbal communication.","What is feedback? Why is it important in communication?","What are written skills? Mention any two ways to improve writing skills."],
+desc3:["Explain the three main types of communication with suitable examples.","Explain any three elements of the communication cycle.","Explain any three types of non-verbal communication with examples.","What are the major barriers to effective communication? Explain any three.","Explain any three ways to overcome communication barriers.","Explain the MINTS rule of capitalization.","What is the 5W + H Rule? Explain all six question words and their purposes."]
+},
+{
+title:"ICT Skills",
+mcqs:[
+["What does ICT stand for?",["Information and Computer Technology","Information and Communication Technology","Internet and Communication Technology","Information Control Technology"],1],
+["Which of the following is an ICT device?",["Laptop","Smartphone","Tablet","All of these"],3],
+["Which of the following is an advantage of ICT?",["Better communication","Cyber attacks","Technology misuse","Difficult online course management"],0],
+["Which of the following is a physical part of a computer?",["Software","Program","Keyboard","Operating System"],2],
+["A program is a set of:",["Hardware","Instructions","Files","Folders"],1],
+["What does BIOS stand for?",["Basic Input/Output System","Basic Internet Operating System","Binary Input Operating System","Basic Internal Operating Software"],0],
+["Which keys are used for specific purposes from F1 to F12?",["Control keys","Navigation keys","Function keys","Command keys"],2],
+["Which key deletes characters on the left side of the cursor?",["Delete","Backspace","Insert","Enter"],1],
+["Which key is used to open the Start menu?",["Ctrl","Alt","Shift","Windows key"],3],
+["Which mouse action is used to move an item to another location?",["Hover","Double-click","Drag and drop","Right-click"],2],
+["A collection of related information stored on a computer is called a:",["Folder","File","Program","Drive"],1],
+["Which of the following is part of monthly computer maintenance?",["Back up data","Clean email inbox","Run a full system virus scan","Clean keyboard"],2],
+["What can slow down a computer?",["Sufficient free storage","Updated antivirus","Too many applications and unnecessary files","Regular maintenance"],2],
+["A security breach occurs when someone gets:",["Authorized access","Unauthorized access","Temporary access","Guest access"],1],
+["Which type of theft involves using someone's personal information to pretend to be that person?",["Physical theft","Software theft","Identity theft","Hardware theft"],2],
+["Which malicious program can copy itself and spread from one computer to another through a network?",["Virus","Worm","Trojan Horse","Antivirus"],1],
+["A program that pretends to be legitimate but may perform harmful activities is called:",["Worm","Virus","Trojan Horse","Firewall"],2],
+["Which of the following helps control unauthorized network access?",["Antivirus","Firewall","Keyboard","BIOS"],1],
+["Encryption converts readable information into:",["Images","Coded form","Folders","Programs"],1],
+["Which protocol should be checked before entering sensitive information on a website?",["HTTP","FTP","HTTPS","SMTP"],2],
+["Which software is designed to detect, prevent and remove malware?",["Firewall","Antivirus","BIOS","Operating System"],1],
+["Which software manages computer hardware and software?",["Application software","Antivirus","Operating System","Browser"],2],
+["Which operating system allows multiple users to use the same computer system or its resources?",["Single-user OS","Multi-user OS","Real-time OS","Single-task OS"],1],
+["What does GUI stand for?",["Graphical User Interface","General User Interface","Graphical Utility Interface","General Utility Interaction"],0],
+["In WIMP, the letter P stands for:",["Program","Page","Pointer","Process"],2]
+],
+desc2:["What is ICT? Write any two examples of ICT devices.","Write any two advantages and two disadvantages of ICT.","Differentiate between hardware and software.","What is BIOS? What does it do during computer startup?","Write any four types of keys found on a keyboard.","What is the difference between a file and a folder?","What is computer maintenance? Write any two maintenance activities.","What is antivirus software? Write any two functions of antivirus software."],
+desc3:["Explain any three ways to improve computer performance.","Write any three measures that can be used to protect data from theft and malware.","What is an Operating System? Explain any two types of Operating Systems.","Differentiate between CLI and GUI.","What is GUI? Explain the four elements of WIMP.","Explain the procedure to restore a deleted file from the Recycle Bin.","Explain any three types of computer maintenance according to their frequency."]
+},
+{
+title:"Self-Management",
+mcqs:[
+["What does self-management refer to?",["Managing others","Managing oneself effectively","Managing only time","Managing money"],1],
+["Which of the following is a domain of self-management?",["Self-awareness","Self-motivation","Self-regulation","All of these"],3],
+["What is stress?",["Only a negative feeling","The body's and mind's response to challenging situations","A type of motivation","A physical exercise"],1],
+["Which type of stress can help a person stay focused and motivated?",["Distress","Eustress","Anxiety","Fatigue"],1],
+["Which of the following is a symptom of excessive stress?",["Better concentration","Lack of sleep","Increased productivity","Improved memory"],1],
+["Which technique can help promote relaxation and reduce stress?",["Yoga","Procrastination","Overthinking","Skipping sleep"],0],
+["Self-awareness means understanding one's:",["Strengths and weaknesses","Emotions and abilities","Interests and values","All of these"],3],
+["Which is a way to identify our strengths and weaknesses?",["Self-reflection","Ignoring feedback","Avoiding challenges","Guessing"],0],
+["Which statement correctly describes an interest?",["What a person can do","What a person likes to do","What a person has achieved","What a person is unable to do"],1],
+["Which statement correctly describes an ability?",["What you like to do","What you can do","What you want to buy","What you feel"],1],
+["Self-motivation is the ability to:",["Depend completely on others","Motivate oneself to take action","Avoid goals","Avoid challenges"],1],
+["Which type of motivation comes from within a person?",["Extrinsic motivation","External motivation","Intrinsic motivation","Social motivation"],2],
+["Which is an example of extrinsic motivation?",["Love of learning","Personal satisfaction","Reward","Interest"],2],
+["Which is a trait of a self-motivated person?",["Giving up easily","Consistent action","Avoiding learning","Depending on constant encouragement"],1],
+["Self-regulation involves controlling one's:",["Thoughts","Emotions","Behaviour","All of these"],3],
+["What does the S in SMART goals stand for?",["Simple","Specific","Strong","Successful"],1],
+["Which SMART element means that progress should be measurable?",["Specific","Measurable","Relevant","Time-bound"],1],
+["A SMART goal should be realistic and possible to achieve. This refers to:",["Achievable","Relevant","Specific","Measurable"],0],
+["What does T in SMART stand for?",["Target","Timely","Time-bound","Track"],2],
+["Time management means:",["Spending all available time on one task","Planning and controlling how time is spent","Avoiding schedules","Working without priorities"],1],
+["Which is a benefit of good time management?",["Missing deadlines","Increased stress","Improved performance","Poor work quality"],2],
+["Which is a consequence of poor time management?",["Better work-life balance","Missing deadlines","Increased efficiency","Reduced stress"],1],
+["Which is the first step of effective time management?",["Track","Control","Organise","Prioritise"],2],
+["Which step involves arranging tasks according to urgency and importance?",["Organise","Prioritise","Control","Track"],1],
+["Which of the following is a useful time-management tool?",["Calendar","Planner","To-do list","All of these"],3]
+],
+desc2:["What is self-management? Mention any two domains of self-management skills.","Write any two symptoms of excessive stress.","Mention any two ways to identify our strengths and weaknesses.","What is self-motivation? Why is it important?","What is self-regulation? Mention any two things involved in self-regulation.","What is time management? Write any two benefits of good time management."],
+desc3:["Explain any three techniques for managing stress.","Write any three traits of a self-motivated person and explain them briefly.","What is self-regulation? Explain any three things required for effective self-regulation.","What is a SMART goal? Explain any three components of SMART goals.","Explain any three reasons why time management is important.","Explain the four steps of effective time management.","Write any three tips for effective time management and explain them briefly."]
+},
+{
+title:"Digital Documentation",
+mcqs:[
+["What is word processing?",["Creating only presentations","Creating, editing and formatting text documents","Managing databases","Creating drawings"],1],
+["Which of the following is a word processor?",["LibreOffice Writer","LibreOffice Calc","LibreOffice Base","LibreOffice Draw"],0],
+["LibreOffice is a:",["Web browser","Free and open-source office suite","Programming language","Database only"],1],
+["Which LibreOffice application is used to create text documents?",["Calc","Impress","Writer","Base"],2],
+["Which LibreOffice application is used to create presentations?",["Writer","Impress","Draw","Math"],1],
+["What is a Style in LibreOffice Writer?",["A type of file","A named collection of formatting features","A toolbar","A keyboard shortcut"],1],
+["Which is an advantage of using Styles?",["Inconsistent formatting","Saves time","Increases file size","Deletes formatting"],1],
+["Which style applies formatting to an entire paragraph?",["Character Style","Page Style","Paragraph Style","Table Style"],2],
+["Which style is used to format selected characters, words or phrases?",["Character Style","Paragraph Style","Frame Style","List Style"],0],
+["Which style controls page size, margins, borders, headers and footers?",["List Style","Page Style","Character Style","Table Style"],1],
+["Which style is used for numbered and bulleted lists?",["List Style","Frame Style","Page Style","Character Style"],0],
+["Which style is used to format tables?",["Paragraph Style","Table Style","Page Style","Frame Style"],1],
+["Which key is used to open the Styles deck?",["F2","F5","F11","F12"],2],
+["Which style group shows styles currently used in the document?",["All Styles","Applied Styles","Custom Styles","Special Styles"],1],
+["Which style group shows user-created styles?",["Automatic","Applied Styles","Custom Styles","Text Styles"],2],
+["What is the purpose of Fill Format Mode?",["To delete styles","To apply the same style to multiple objects quickly","To create a new document","To save a document"],1],
+["How can Fill Format Mode be exited?",["Press F1","Press Esc","Press Enter","Press Ctrl"],1],
+["Which option is used to create a new style from formatted text?",["Update Selected Style","New Style from Selection","Load Styles","From File"],1],
+["Which option is used to modify an existing style according to the formatting of selected text?",["Update Selected Style","New Style from Selection","Fill Format Mode","Load Styles"],0],
+["What happens when an existing style is updated?",["Only the selected word changes","All text or objects using that style may change","The document is deleted","The style disappears"],1],
+["Which method can be used to create a new style by moving formatted text into the Styles deck?",["Copy and Paste","Drag and Drop","Find and Replace","Save As"],1],
+["Styles can be loaded into a document from a:",["Template","Keyboard","Printer","Mouse"],0],
+["Which option is used to load styles from another document?",["From File","New Style","Update Style","Fill Format"],0],
+["What does Overwrite do while loading styles?",["Deletes the document","Replaces existing styles with the same names","Creates a new file","Removes all formatting"],1],
+["Which of the following is not one of the six main types of Styles in Writer?",["Paragraph Style","Character Style","Page Style","Image Style"],3]
+],
+desc2:["What is word processing? Name any two word-processing applications.","What is a Style? Write any two advantages of using Styles.","What is Page Style? Mention any two things controlled by Page Style.","What is the Styles deck? How can you open it?","What is Fill Format Mode? Write the shortcut key used to open the Styles deck.","What is Overwrite while loading Styles?"],
+desc3:["Explain any three advantages of using Styles in LibreOffice Writer.","Explain the six main types of Styles in LibreOffice Writer.","Explain the steps for using Fill Format Mode.","Explain the procedure for creating a new Style from a selection.","Explain how to update an existing Style in LibreOffice Writer.","Write the steps to load Styles from another file."]
+}
 ];
 
-let current=0, score=0, answered=false;
+let currentUnit=0,currentQ=0,score=0,answered=false;
 
-const qno=document.getElementById("qno");
-const question=document.getElementById("question");
-const optionsBox=document.getElementById("options");
-const feedback=document.getElementById("feedback");
-const nextBtn=document.getElementById("nextBtn");
-const counter=document.getElementById("counter");
-const scoreBox=document.getElementById("score");
-const bar=document.getElementById("bar");
-
-function loadQuestion(){
-  answered=false;
-  const item=questions[current];
-  qno.textContent=`Question ${current+1}`;
-  question.textContent=item.q;
-  counter.textContent=`Question ${current+1} of ${questions.length}`;
-  scoreBox.textContent=`Score: ${score}`;
-  bar.style.width=((current)/questions.length*100)+"%";
-  optionsBox.innerHTML="";
-  feedback.className="feedback";
-  feedback.innerHTML="";
-  nextBtn.style.display="none";
-
-  item.options.forEach((opt,i)=>{
-    const btn=document.createElement("button");
-    btn.className="option";
-    btn.innerHTML=`<strong>${String.fromCharCode(65+i)}.</strong> ${opt}`;
-    btn.onclick=()=>checkAnswer(i,btn);
-    optionsBox.appendChild(btn);
-  });
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function openUnit(i){currentUnit=i;document.getElementById('unitTitle').textContent=units[i].title;show('choice')}
+function goHome(){show('home')}
+function backToChoice(){show('choice')}
+function startMCQ(){currentQ=0;score=0;document.getElementById('mcqTitle').textContent=units[currentUnit].title+" — MCQ Practice";show('mcq');renderQuestion()}
+function renderQuestion(){
+ const u=units[currentUnit], q=u.mcqs[currentQ]; answered=false;
+ document.getElementById('counter').textContent=`Question ${currentQ+1} of ${u.mcqs.length}`;
+ document.getElementById('progressBar').style.width=((currentQ+1)/u.mcqs.length*100)+'%';
+ document.getElementById('questionArea').innerHTML=`
+ <div class="question-card">
+ <div class="qno">Question ${currentQ+1}</div>
+ <div class="question">${q[0]}</div>
+ <div class="options">${q[1].map((x,i)=>`<button class="option" onclick="answer(${i})">${String.fromCharCode(65+i)}. ${x}</button>`).join('')}</div>
+ <div id="feedback" class="feedback"></div>
+ <div class="nav"><span class="muted">${score} correct so far</span><button id="nextBtn" class="next-btn" onclick="nextQuestion()" disabled>${currentQ===u.mcqs.length-1?'Finish':'Next →'}</button></div>
+ </div>`;
 }
-
-function checkAnswer(selected,clicked){
-  if(answered)return;
-  answered=true;
-  const correct=questions[current].answer;
-  const all=document.querySelectorAll(".option");
-  all.forEach(b=>b.disabled=true);
-  all[correct].classList.add("correct");
-
-  if(selected===correct){
-    score++;
-    clicked.classList.add("correct");
-    feedback.className="feedback show good";
-    feedback.innerHTML="✓ Correct! Well done.";
-  }else{
-    clicked.classList.add("wrong");
-    feedback.className="feedback show bad";
-    feedback.innerHTML=`✗ Incorrect. The correct answer is <b>${String.fromCharCode(65+correct)}. ${questions[current].options[correct]}</b>`;
-  }
-  scoreBox.textContent=`Score: ${score}`;
-  bar.style.width=((current+1)/questions.length*100)+"%";
-  nextBtn.style.display="block";
-  nextBtn.textContent=current===questions.length-1 ? "View Result →" : "Next Question →";
+function answer(i){
+ if(answered)return; answered=true;
+ const q=units[currentUnit].mcqs[currentQ], buttons=document.querySelectorAll('.option'),fb=document.getElementById('feedback');
+ buttons.forEach(b=>b.classList.add('disabled'));
+ buttons[q[2]].classList.add('correct');
+ if(i===q[2]){score++;fb.textContent="✓ Correct!";fb.style.color="#166534";fb.style.background="#ecfdf3"}
+ else{buttons[i].classList.add('wrong');fb.textContent="✗ Incorrect. The correct answer is "+String.fromCharCode(65+q[2])+". "+q[1][q[2]];fb.style.color="#991b1b";fb.style.background="#fef2f2"}
+ fb.classList.add('show');document.getElementById('nextBtn').disabled=false;
 }
-
 function nextQuestion(){
-  if(!answered)return;
-  current++;
-  if(current<questions.length){
-    loadQuestion();
-    window.scrollTo({top:0,behavior:"smooth"});
-  }else{
-    document.getElementById("quizCard").style.display="none";
-    document.querySelector(".topbar").style.display="none";
-    document.querySelector(".progress").style.display="none";
-    document.getElementById("result").style.display="block";
-    document.getElementById("finalScore").textContent=`${score} / ${questions.length}`;
-    const pct=score/questions.length*100;
-    document.getElementById("message").textContent=
-      pct>=80 ? "Excellent! 🌟 You have a strong understanding of the topics." :
-      pct>=60 ? "Good job! 👍 Revise the topics once and try again." :
-      "Keep practising! 📚 Review the chapter and attempt the quiz again.";
-    window.scrollTo({top:0,behavior:"smooth"});
-  }
+ const u=units[currentUnit];
+ if(currentQ<u.mcqs.length-1){currentQ++;renderQuestion()}else{
+ document.getElementById('questionArea').innerHTML=`<div class="score"><p>MCQ Practice Completed</p>
+<div style="margin:12px 0;padding:10px 14px;border-radius:10px;background:#f3f4f6;font-size:14px;">
+  <strong>MCQ Mode:</strong> Click an option to check your answer. The next question will open automatically.
+</div>
+<strong>${score} / ${u.mcqs.length}</strong><p class="muted">${Math.round(score/u.mcqs.length*100)}% Score</p><button class="next-btn" onclick="startMCQ()">↻ Try Again</button> <button class="back-btn" onclick="backToChoice()">Unit Menu</button></div>`;
+ }
 }
-
-function restartQuiz(){
-  current=0;score=0;
-  document.getElementById("quizCard").style.display="block";
-  document.querySelector(".topbar").style.display="flex";
-  document.querySelector(".progress").style.display="block";
-  document.getElementById("result").style.display="none";
-  loadQuestion();
-  window.scrollTo({top:0,behavior:"smooth"});
+function showDescriptive(){
+ const u=units[currentUnit];document.getElementById('descTitle').textContent=u.title;
+ let n=0,html='<div class="card" style="margin-bottom:16px"><strong>2 Marks Questions</strong><p class="muted">Answer briefly and clearly.</p></div>';
+ html+=u.desc2.map(q=>`<div class="desc"><span class="badge">2 Marks</span><div>${++n}. ${q}</div></div>`).join('');
+ html+='<div class="card" style="margin:24px 0 16px"><strong>3 Marks Questions</strong><p class="muted">Write complete answers with relevant points/examples.</p></div>';
+ html+=u.desc3.map(q=>`<div class="desc"><span class="badge">3 Marks</span><div>${++n}. ${q}</div></div>`).join('');
+ document.getElementById('descList').innerHTML=html;show('descriptive')
 }
-
-loadQuestion();
 </script>
+
+<script>
+(function () {
+  function initAutoAdvance() {
+    const root = document.body;
+    if (root.dataset.autoAdvanceReady) return;
+    root.dataset.autoAdvanceReady = "1";
+
+    // Find likely MCQ answer controls without depending on the original
+    // implementation's exact variable/function names.
+    root.addEventListener("click", function (e) {
+      const target = e.target;
+      if (!(target instanceof HTMLElement)) return;
+
+      // Ignore navigation/home/unit/descriptive controls.
+      const isAnswer =
+        target.matches('input[type="radio"], input[type="checkbox"]') ||
+        target.closest('[data-answer], .option, .answer-option, .mcq-option, .option-btn');
+
+      if (!isAnswer) return;
+
+      const option = target.closest('label, button, .option, .answer-option, .mcq-option, .option-btn') || target;
+
+      // Give the original quiz handler time to mark the answer and display feedback.
+      setTimeout(function () {
+        // Try common "next question" controls first.
+        const next = Array.from(root.querySelectorAll("button, a")).find(el => {
+          const t = (el.textContent || "").trim().toLowerCase();
+          return /^(next|next question|continue)$/.test(t) &&
+                 el.offsetParent !== null &&
+                 getComputedStyle(el).display !== "none";
+        });
+
+        if (next) {
+          next.click();
+          return;
+        }
+
+        // Fallback: activate the next visible question panel.
+        const questions = Array.from(root.querySelectorAll(
+          '[data-question], .question, .mcq-question, .quiz-question'
+        )).filter(el => el.offsetParent !== null);
+
+        if (questions.length > 1) {
+          const current = questions.findIndex(q => q.contains(option));
+          if (current >= 0 && current < questions.length - 1) {
+            questions[current].style.display = "none";
+            questions[current + 1].style.display = "";
+            questions[current + 1].scrollIntoView({behavior:"smooth", block:"center"});
+          }
+        }
+      }, 450);
+    }, true);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAutoAdvance, {once:true});
+  } else {
+    initAutoAdvance();
+  }
+})();
+</script>
+
 </body>
 </html>
